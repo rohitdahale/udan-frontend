@@ -18,6 +18,7 @@ const navLinks = [
     ]
   },
   { name: 'Manufacturing', path: '/manufacturing' },
+  { name: 'Machinery', path: '/machinery' },
   { name: 'Industries Served', path: '/industries' },
   { name: 'Contact', path: '/contact' },
 ];

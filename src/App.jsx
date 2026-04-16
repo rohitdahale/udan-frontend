@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import Manufacturing from './pages/Manufacturing';
 import IndustriesServed from './pages/IndustriesServed';
 import Contact from './pages/Contact';
+import Machinery from './pages/Machinery';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/products/*" element={<Products />} />
         <Route path="/manufacturing" element={<Manufacturing />} />
         <Route path="/industries" element={<IndustriesServed />} />
+        <Route path="/machinery" element={<Machinery />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
