@@ -6,6 +6,8 @@ import { Button } from '../components/ui/Button';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { ProductShowcase } from '../components/ui/ProductShowcase';
 
+import asset1 from '../assets/asset1.jpeg';
+
 // Hardcoded data based on the website concept 
 const stats = [
   { value: '150k+', label: 'Parts Manufactured Daily', icon: <Factory size={24} /> },
@@ -29,7 +31,7 @@ const Homepage = () => {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-navy-900/70 z-10"></div>
           <img 
-            src="src\assets\asset1.jpeg" 
+            src={asset1} 
             alt="Plastic Injection Molding Factory" 
             className="w-full h-full object-cover scale-105 animate-[pulse_20s_ease-in-out_infinite] opacity-60"
           />

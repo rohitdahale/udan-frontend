@@ -124,9 +124,9 @@ export const Navbar = () => {
 
         {/* CTA */}
         <div className="hidden lg:flex items-center gap-4">
-          <a href="tel:+919876543210" className="flex items-center gap-2 text-white hover:text-electric transition-colors">
+          <a href="tel:+919579557674" className="flex items-center gap-2 text-white hover:text-electric transition-colors">
             <PhoneCall size={18} className="text-electric" />
-            <span className="text-sm font-medium font-display tracking-wider">+91 98765 43210</span>
+            <span className="text-sm font-medium font-display tracking-wider">+91 919579 557674</span>
           </a>
         </div>
 
