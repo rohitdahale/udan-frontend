@@ -1,77 +1,146 @@
-import React from 'react';
-import { Layout } from '../components/layout/Layout';
-import { ScrollReveal } from '../components/ui/ScrollReveal';
-import { SectionHeading } from '../components/ui/SectionHeading';
-import { Button } from '../components/ui/Button';
+import React, { useState } from "react";
+import { Layout } from "@/components/layout/Layout";
+import { PageHero } from "@/components/PageHero";
+import { Reveal } from "@/components/Reveal";
+import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 
-const Contact = () => {
+export default function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+
   return (
-    <Layout title="Contact Us | Udan Metaplast">
-      <section className="pt-32 pb-20 bg-industrial-100 min-h-screen">
-        <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading subtitle="Get In Touch" title="Partner with Udan Metaplast" centered />
-          
-          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-            {/* Contact Info */}
-            <div className="w-full md:w-2/5 bg-navy-900 p-10 text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-hero-pattern opacity-10 bg-cover bg-center"></div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-display font-bold mb-6">Contact Information</h3>
-                <p className="text-gray-300 mb-10">
-                  Fill out the form and our team will get back to you within 24 hours.
-                </p>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-electric/20 rounded-full flex items-center justify-center text-electric">📍</div>
-                    <p>Nashik, Maharashtra, India</p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-electric/20 rounded-full flex items-center justify-center text-electric">📞</div>
-                    <p>+91 98765 43210</p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-electric/20 rounded-full flex items-center justify-center text-electric">✉️</div>
-                    <p>support@udanmetaplast.in</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <Layout
+      title="Contact — UDAN Metaplast"
+      description="Get in touch with UDAN Metaplast. Factory address, business hours, email and enquiry form."
+    >
+      <PageHero
+        eyebrow="Contact"
+        title="Let's engineer your next component, together."
+        description="Send us your drawings or describe your requirement. Our engineering team responds within 48 hours with a detailed feasibility."
+      />
 
-            {/* Contact Form */}
-            <div className="w-full md:w-3/5 p-10">
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                    <input type="text" className="w-full px-4 py-3 bg-industrial-100 border-none rounded-sm focus:ring-2 focus:ring-electric" placeholder="John" />
+      <section className="py-24 lg:py-32 bg-background">
+        <div className="container-x grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <Reveal className="lg:col-span-5 space-y-8">
+            <ContactCard
+              icon={MapPin}
+              label="Factory Address"
+              value={
+                <>
+                  Plot no H146/1/1, MIDC Ambad,
+                  <br />
+                  Nashik, Maharashtra 422010,
+                  <br />
+                  India
+                </>
+              }
+            />
+            <ContactCard icon={Phone} label="Phone" value="+91 93716 78364" />
+            <ContactCard icon={Mail} label="Email" value="support@udanmetaplast.com" />
+            <ContactCard
+              icon={Clock}
+              label="Business Hours"
+              value={
+                <>
+                  Sun – Fri · 9:30 – 17:30 IST
+                  <br />
+                  Saturday closed
+                </>
+              }
+            />
+          </Reveal>
+
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <div className="rounded-3xl border border-hairline bg-surface p-8 lg:p-12">
+              <h2 className="font-display font-bold text-2xl lg:text-3xl text-primary">Send an enquiry</h2>
+              <p className="mt-2 text-ink-muted">We typically respond within one business day.</p>
+
+              {submitted ? (
+                <div className="mt-10 rounded-2xl border border-secondary/30 bg-secondary/5 p-8 text-center animate-fade-in">
+                  <div className="font-display font-bold text-2xl text-primary">Thank you.</div>
+                  <p className="mt-2 text-ink-muted">Your enquiry has been received. Our team will reach out shortly.</p>
+                </div>
+              ) : (
+                <form
+                  className="mt-8 grid sm:grid-cols-2 gap-5"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setSubmitted(true);
+                  }}
+                >
+                  <Field label="Full Name" name="name" required />
+                  <Field label="Company" name="company" />
+                  <Field label="Email" name="email" type="email" required />
+                  <Field label="Phone" name="phone" type="tel" />
+                  <Field label="Subject" name="subject" wrap />
+                  <div className="sm:col-span-2">
+                    <label className="text-xs font-semibold tracking-wide uppercase text-ink-muted">Project Details</label>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      required
+                      className="mt-2 w-full rounded-xl border border-hairline bg-background px-4 py-3 text-ink placeholder:text-ink-muted/60 focus:outline-none focus:border-secondary transition-colors"
+                      placeholder="Tell us about your component, volumes and timeline…"
+                    />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                    <input type="text" className="w-full px-4 py-3 bg-industrial-100 border-none rounded-sm focus:ring-2 focus:ring-electric" placeholder="Doe" />
+                  <div className="sm:col-span-2 mt-2">
+                    <button
+                      type="submit"
+                      className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-4 text-sm font-semibold hover:bg-secondary transition-colors"
+                    >
+                      Send Enquiry
+                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                    </button>
                   </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                  <input type="email" className="w-full px-4 py-3 bg-industrial-100 border-none rounded-sm focus:ring-2 focus:ring-electric" placeholder="john@company.com" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-                  <input type="text" className="w-full px-4 py-3 bg-industrial-100 border-none rounded-sm focus:ring-2 focus:ring-electric" placeholder="Your Company Ltd." />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                  <textarea rows="4" className="w-full px-4 py-3 bg-industrial-100 border-none rounded-sm focus:ring-2 focus:ring-electric resize-none" placeholder="How can we help you?"></textarea>
-                </div>
-                <Button variant="primary" className="w-full">
-                  Send Message
-                </Button>
-              </form>
+                </form>
+              )}
             </div>
-          </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="pb-24 lg:pb-32 bg-background">
+        <div className="container-x">
+          <Reveal>
+            <div className="overflow-hidden rounded-3xl border border-hairline aspect-[16/8]">
+              <iframe
+                title="UDAN Metaplast location"
+                src="https://www.google.com/maps?q=Udan+Metaplast,+Plot+no+H146/1/1,+MIDC+Ambad,+Nashik,+Maharashtra+422010&output=embed"
+                className="w-full h-full grayscale-[20%]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
     </Layout>
   );
-};
+}
 
-export default Contact;
+function ContactCard({ icon: Icon, label, value }) {
+  return (
+    <div className="flex gap-5">
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+        <Icon className="w-5 h-5" />
+      </div>
+      <div>
+        <div className="text-xs font-semibold tracking-[0.2em] uppercase text-secondary">{label}</div>
+        <div className="mt-2 text-lg text-ink leading-relaxed">{value}</div>
+      </div>
+    </div>
+  );
+}
+
+function Field({ label, name, type = "text", required, wrap }) {
+  return (
+    <div className={wrap ? "sm:col-span-2" : ""}>
+      <label className="text-xs font-semibold tracking-wide uppercase text-ink-muted">{label}</label>
+      <input
+        name={name}
+        type={type}
+        required={required}
+        className="mt-2 w-full rounded-xl border border-hairline bg-background px-4 py-3 text-ink placeholder:text-ink-muted/60 focus:outline-none focus:border-secondary transition-colors"
+      />
+    </div>
+  );
+}
