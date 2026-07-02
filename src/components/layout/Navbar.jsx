@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Mail } from "lucide-react";
+import logoImg from "@/assets/logowebsite.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -14,16 +15,39 @@ const links = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [open, setOpen] = useState(false);
   const [showQuoteMenu, setShowQuoteMenu] = useState(false);
+  
+  const lastScrollY = useRef(0);
   const quoteMenuRef = useRef(null);
+  const location = useLocation();
+
+  const isLightText = location.pathname === "/" && !scrolled;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Toggle dark styling background when scrolled a bit
+      setScrolled(currentScrollY > 12);
+      
+      // Hide navbar when scrolling down, show when scrolling up
+      if (!open) {
+        if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+          setVisible(false);
+          setShowQuoteMenu(false); // also hide popover when navbar scrolls away
+        } else {
+          setVisible(true);
+        }
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [open]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -41,17 +65,15 @@ export function Navbar() {
         scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-hairline"
           : "bg-transparent"
-      }`}
+      } ${visible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="container-x flex h-20 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground font-display font-bold tracking-tight">
-            U
-          </div>
-          <div className="leading-tight">
-            <div className="font-display font-bold text-[15px] tracking-tight text-ink">UDAN</div>
-            <div className="text-[10px] tracking-[0.22em] uppercase text-ink-muted -mt-0.5">Metaplast</div>
-          </div>
+        <Link to="/" className="flex items-center group">
+          <img
+            src={logoImg}
+            alt="UDAN Metaplast Logo"
+            className={`h-11 w-auto transition-all duration-300 ${isLightText ? "brightness-0 invert" : ""}`}
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -59,7 +81,9 @@ export function Navbar() {
             <Link
               key={l.to}
               to={l.to}
-              className="px-4 py-2 text-sm font-medium text-ink-muted hover:text-primary transition-colors relative"
+              className={`px-4 py-2 text-sm font-medium transition-colors duration-300 relative ${
+                isLightText ? "text-white/75 hover:text-white" : "text-ink-muted hover:text-primary"
+              }`}
             >
               {l.label}
             </Link>
@@ -70,7 +94,11 @@ export function Navbar() {
         <div className="relative hidden lg:block" ref={quoteMenuRef}>
           <button
             onClick={() => setShowQuoteMenu((prev) => !prev)}
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-secondary transition-all hover:shadow-lg hover:shadow-primary/20"
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:shadow-lg ${
+              isLightText
+                ? "bg-accent text-primary hover:bg-white hover:shadow-accent/20"
+                : "bg-primary text-primary-foreground hover:bg-secondary hover:shadow-primary/20"
+            }`}
           >
             Request Quote
           </button>
@@ -106,7 +134,7 @@ export function Navbar() {
 
         <button
           onClick={() => setOpen((o) => !o)}
-          className="lg:hidden text-ink p-2"
+          className={`lg:hidden p-2 transition-colors duration-300 ${isLightText ? "text-white" : "text-ink"}`}
           aria-label="Toggle menu"
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

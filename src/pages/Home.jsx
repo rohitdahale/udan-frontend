@@ -19,7 +19,7 @@ import qualityImg from "@/assets/Blohm Simplex 7 Surface Grinder.jpg.jpeg";
 import cncImg from "@/assets/VMC Haas VF-2.jpg.jpeg";
 
 // Unsplash premium image URLs for the showcases
-const autoImg = "https://images.unsplash.com/photo-1617400324476-7484b3c16558?auto=format&fit=crop&w=1200&q=80";
+const autoImg = "https://5.imimg.com/data5/SELLER/Default/2021/7/KZ/QE/SS/791254/plastic-door-handles-machine-sliding-handle-500x500.jpg";
 const luggageImg = "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=1200&q=80";
 const injectionImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80";
 const customImg = "https://images.unsplash.com/photo-1612550761236-e813928f7271?auto=format&fit=crop&w=1200&q=80";

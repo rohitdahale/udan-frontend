@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Linkedin, Mail, MapPin, Phone, Twitter, Youtube } from "lucide-react";
+import logoImg from "@/assets/logowebsite.png";
 
 export function Footer() {
   return (
@@ -8,14 +9,12 @@ export function Footer() {
       <div className="container-x py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent text-primary font-display font-bold">
-                U
-              </div>
-              <div>
-                <div className="font-display font-bold text-lg tracking-tight">UDAN Metaplast</div>
-                <div className="text-[10px] tracking-[0.22em] uppercase opacity-70">Precision Moulds</div>
-              </div>
+            <div className="flex items-center">
+              <img
+                src={logoImg}
+                alt="UDAN Metaplast Logo"
+                className="h-12 w-auto brightness-0 invert"
+              />
             </div>
             <p className="mt-6 text-sm leading-relaxed opacity-75 max-w-sm">
               Engineering precision moulds and custom tooling for automotive, luggage and industrial

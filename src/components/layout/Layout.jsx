@@ -14,7 +14,7 @@ export const Layout = ({ children, title = 'Udan Metaplast | Modern Injection Mo
   return (
     <HelmetProvider>
       <Helmet>
-        <title>{title}</title>
+        <title>UDAN Metaplast</title>
         <meta name="description" content={description} />
       </Helmet>
       <div className="min-h-screen flex flex-col selection:bg-electric selection:text-white">
